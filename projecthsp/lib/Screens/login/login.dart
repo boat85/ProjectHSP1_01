@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:projecthsp/Screens/login/register.dart';
 // import 'package:test04_login/Screens/login/register.dart';
 
+import '../../providers/usersProviders.dart';
 import '../menu/mainmenu.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -93,6 +94,9 @@ class _butomtestState extends State<butomtest> {
   final _formKey = GlobalKey<FormState>();
   bool hidepassword = true;
 
+  final username = TextEditingController();
+  final password = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -109,6 +113,7 @@ class _butomtestState extends State<butomtest> {
             }
             return null;
           },
+          controller: username,
           keyboardType: TextInputType.emailAddress,
           decoration: InputDecoration(
               prefixIcon: const Icon(Icons.person),
@@ -142,6 +147,7 @@ class _butomtestState extends State<butomtest> {
             }
             return null;
           },
+          controller: password,
           obscureText: hidepassword,
           decoration: InputDecoration(
               prefixIcon: const Icon(Icons.lock),
@@ -178,33 +184,39 @@ class _butomtestState extends State<butomtest> {
         const SizedBox(
           height: 15,
         ),
-        InkWell(
-          child: const Text(
-            "ลืมรหัสผ่าน",
-            style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
-          ),
-          onTap: () {},
-        ),
+        // InkWell(
+        //   child: const Text(
+        //     "ลืมรหัสผ่าน",
+        //     style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+        //   ),
+        //   onTap: () {},
+        // ),
         const SizedBox(
           height: 55,
         ),
         MaterialButton(
           minWidth: double.infinity,
           height: 55,
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) {
-                  return const mainMenu();
-                },
-              ),
-            );
+          onPressed: () async {
+            var slogin = await UsersProvider()
+                .getDataUserLogin(username.text, password.text);
+            if (slogin != Null) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return const mainMenu();
+                  },
+                ),
+              );
+            }
+            ;
+
             if (_formKey.currentState!.validate()) {
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
                     content: Text(
-                  'ระบบกำลังตรวจสอบ',
+                  'ไม่สามารถเข้าสู่ระบบได้',
                   style: TextStyle(fontSize: 20),
                 )),
               );

@@ -454,6 +454,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           address.text,
                           blood_type.text,
                           password.text);
+
                       Navigator.push(
                         context,
                         MaterialPageRoute(

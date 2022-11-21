@@ -7,32 +7,23 @@ import '../models/userModel.dart';
 
 class UsersProvider {
   // Get Data AllUser
+
+  String host = "10.0.2.2:8000";
+
   Future<List<Users>> getDataUser() async {
-    const String url = "http://10.0.2.2:8000/getUsers/";
+    String url = "http://${host}/getUsers/";
     Response response = await Dio().get(url);
     return (response.data as List).map((e) => Users.fromJson(e)).toList();
   }
 
-  // Register User test
-  // void regiterUser(Users user) async {
-  //   const String url = "http://10.0.2.2:8000/create/";
-  //   Response response = await Dio().post(url, data: jsonEncode(user.toMap()));
-  // }
-
-  // void regiterUser(Users user) async {
-  //   print("test register");
-  //   final url = Uri.parse("http://10.0.2.2:8000/create/");
-  //   Response response = (await http.post(url,
-  //       headers: <String, String>{
-  //         'Content-Type': 'application/json; charset=UTF-8',
-  //       },
-  //       body: jsonEncode(user.toMap()))) as Response;
-  //   if (response == 200) {
-  //     print("ok");
-  //   } else {
-  //     print('NO');
-  //   }
-  // }
+  Future<Users> getDataUserLogin(String username, String password) async {
+    String url = "http://${host}/getUsers/${username}/${password}";
+    Response response = await Dio().get(url);
+    for (var i in response.data) {
+      print(i);
+    }
+    return (response.data).map((e) => Users.fromJson(e)).toList();
+  }
 
   // Register User test
   Future<Users> addUserd(
@@ -46,7 +37,7 @@ class UsersProvider {
     dynamic blood_type,
     dynamic password,
   ) async {
-    var url = "http://127.0.0.1/:8000/create/";
+    var url = "http://${host}/create/";
     Response response = await Dio().post(url, data: {
       'fullname': fullname,
       'lastname': lastname,
@@ -73,6 +64,27 @@ class UsersProvider {
     Response response = await Dio().delete(url);
     return response.data;
   }
+
+  // Register User test
+  // void regiterUser(Users user) async {
+  //   const String url = "http://10.0.2.2:8000/create/";
+  //   Response response = await Dio().post(url, data: jsonEncode(user.toMap()));
+  // }
+
+  // void regiterUser(Users user) async {
+  //   print("test register");
+  //   final url = Uri.parse("http://10.0.2.2:8000/create/");
+  //   Response response = (await http.post(url,
+  //       headers: <String, String>{
+  //         'Content-Type': 'application/json; charset=UTF-8',
+  //       },
+  //       body: jsonEncode(user.toMap()))) as Response;
+  //   if (response == 200) {
+  //     print("ok");
+  //   } else {
+  //     print('NO');
+  //   }
+  // }
 
   // Future<Users?> createUser({required Users user}) async {
   //   Users? requiredUser;
