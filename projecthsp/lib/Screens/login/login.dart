@@ -1,0 +1,254 @@
+import 'package:flutter/material.dart';
+import 'package:projecthsp/Screens/login/register.dart';
+// import 'package:test04_login/Screens/login/register.dart';
+
+import '../menu/mainmenu.dart';
+
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        padding: const EdgeInsets.symmetric(vertical: 20),
+        width: double.infinity,
+        decoration: BoxDecoration(
+            gradient: LinearGradient(begin: Alignment.topCenter, colors: [
+          Color.fromARGB(255, 4, 97, 246),
+          Color.fromARGB(255, 32, 112, 251),
+          Color.fromARGB(255, 58, 161, 246),
+        ])),
+        child: Column(
+          // crossAxisAlignment: CrossAxisAlignment.center,
+          // mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const SizedBox(
+              height: 80,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                children: const <Widget>[
+                  Text(
+                    "ล็อกอิน",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 40,
+                        // fontFamily: 'Kanit',
+                        fontWeight: FontWeight.bold),
+                  )
+                ],
+              ),
+            ),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Container(
+                  // height: double.infinity,
+                  decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(100),
+                          topRight: Radius.circular(0),
+                          bottomLeft: Radius.circular(0),
+                          bottomRight: Radius.circular(100))),
+                  child: Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Column(
+                      children: <Widget>[
+                        const SizedBox(
+                          height: 50,
+                        ),
+                        Container(
+                          padding: const EdgeInsets.all(10),
+                          child: const butomtest(),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class butomtest extends StatefulWidget {
+  const butomtest({super.key});
+
+  @override
+  State<butomtest> createState() => _butomtestState();
+}
+
+// ignore: camel_case_types
+class _butomtestState extends State<butomtest> {
+  final _formKey = GlobalKey<FormState>();
+  bool hidepassword = true;
+
+  @override
+  Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
+    return Form(
+      key: _formKey,
+      child: Column(children: [
+        SizedBox(
+          height: size.height * 0.005,
+        ),
+        TextFormField(
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'กรุณากรอกเบอร์โทรศัพท์หรืออีเมล';
+            }
+            return null;
+          },
+          keyboardType: TextInputType.emailAddress,
+          decoration: InputDecoration(
+              prefixIcon: const Icon(Icons.person),
+              hintText: "กรอกเบอร์โทรศัพท์หรืออีเมล",
+              labelText: "เบอร์โทรศัพท์หรืออีเมล",
+              floatingLabelBehavior: FloatingLabelBehavior.always,
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 45,
+                vertical: 20,
+              ),
+              enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(28),
+                  borderSide: const BorderSide(
+                    color: Colors.black,
+                  ),
+                  gapPadding: 10),
+              focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(28),
+                  borderSide: const BorderSide(
+                    color: Colors.black,
+                  ),
+                  gapPadding: 10)),
+        ),
+        const SizedBox(
+          height: 35,
+        ),
+        TextFormField(
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'กรุณากรอกรหัสผ่าน';
+            }
+            return null;
+          },
+          obscureText: hidepassword,
+          decoration: InputDecoration(
+              prefixIcon: const Icon(Icons.lock),
+              hintText: "กรอกรหัสผ่าน",
+              labelText: "รหัสผ่าน",
+              suffixIcon: GestureDetector(
+                onTap: () {
+                  setState(() {
+                    hidepassword = !hidepassword;
+                  });
+                },
+                child: Icon(
+                  hidepassword ? Icons.visibility_off : Icons.visibility,
+                ),
+              ),
+              floatingLabelBehavior: FloatingLabelBehavior.always,
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 45,
+                vertical: 20,
+              ),
+              enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(28),
+                  borderSide: const BorderSide(
+                    color: Colors.black,
+                  ),
+                  gapPadding: 10),
+              focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(28),
+                  borderSide: const BorderSide(
+                    color: Colors.black,
+                  ),
+                  gapPadding: 10)),
+        ),
+        const SizedBox(
+          height: 15,
+        ),
+        InkWell(
+          child: const Text(
+            "ลืมรหัสผ่าน",
+            style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+          ),
+          onTap: () {},
+        ),
+        const SizedBox(
+          height: 55,
+        ),
+        MaterialButton(
+          minWidth: double.infinity,
+          height: 55,
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) {
+                  return const mainMenu();
+                },
+              ),
+            );
+            if (_formKey.currentState!.validate()) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                    content: Text(
+                  'ระบบกำลังตรวจสอบ',
+                  style: TextStyle(fontSize: 20),
+                )),
+              );
+            }
+          },
+          color: Colors.black,
+          shape: RoundedRectangleBorder(
+              // side: const BorderSide(color: Colors.blue),
+              borderRadius: BorderRadius.circular(50)),
+          child: const Text(
+            "เข้าสู่ระบบ",
+            style: TextStyle(
+                fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        Text(
+          "หากท่านยังไม่มีบัญชีผู้ใช้สามารถ",
+          style: TextStyle(
+              color: Colors.black, fontWeight: FontWeight.bold, fontSize: 10),
+        ),
+        InkWell(
+          child: const Text(
+            "สร้างบัญชีผู้ใช้ใหม่ได้ที่นี่",
+            style: TextStyle(
+                color: Colors.blue, fontWeight: FontWeight.bold, fontSize: 15),
+          ),
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) {
+                  return const RegisterScreen();
+                },
+              ),
+            );
+          },
+        ),
+        const SizedBox(
+          height: 20,
+        )
+      ]),
+    );
+  }
+}
