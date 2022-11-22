@@ -17,18 +17,31 @@ class _RegisterScreenState extends State<RegisterScreen> {
   bool hidepassword = true, hidepassword1 = true;
 
   //// valiable form
-  final tel = TextEditingController();
-  final password = TextEditingController();
-  final conpassword = TextEditingController();
-  final email = TextEditingController();
-  final sex = TextEditingController();
-  final fullname = TextEditingController();
-  final lastname = TextEditingController();
-  final birthday = TextEditingController();
-  final address = TextEditingController();
-  final weight = TextEditingController();
-  final height = TextEditingController();
-  final blood_type = TextEditingController();
+  // final tel = TextEditingController();
+  // final password = TextEditingController();
+  // final conpassword = TextEditingController();
+  // final email = TextEditingController();
+  // final sex = TextEditingController();
+  // final fullname = TextEditingController();
+  // final lastname = TextEditingController();
+  // final birthday = TextEditingController();
+  // final address = TextEditingController();
+  // final weight = TextEditingController();
+  // final height = TextEditingController();
+  // final blood_type = TextEditingController();
+
+  String tel = '';
+  String password = '';
+  String conpassword = '';
+  String email = '';
+  String sex = '';
+  String fullname = '';
+  String lastname = '';
+  String birthday = '';
+  String address = '';
+  String blood_type = '';
+
+  String test = '';
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +72,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       }
                       return null;
                     },
-                    controller: tel,
+                    onSaved: (value) {
+                      setState(() {
+                        tel = value!;
+                      });
+                    },
+                    // controller: tel,
                     // keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
                         prefixIcon: const Icon(Icons.add_call),
@@ -93,7 +111,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       }
                       return null;
                     },
-                    controller: password,
+                    onSaved: (value) {
+                      setState(() {
+                        password = value!;
+                      });
+                    },
+                    // controller: password,
                     obscureText: hidepassword,
                     decoration: InputDecoration(
                         prefixIcon: const Icon(Icons.lock),
@@ -140,7 +163,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       }
                       return null;
                     },
-                    controller: conpassword,
+                    onSaved: (value) {
+                      setState(() {
+                        conpassword = value!;
+                      });
+                    },
+                    // controller: conpassword,
                     obscureText: hidepassword1,
                     decoration: InputDecoration(
                         prefixIcon: const Icon(Icons.lock),
@@ -194,7 +222,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                       return null;
                     },
-                    controller: sex,
+                    onSaved: (value) {
+                      setState(() {
+                        sex = value!;
+                      });
+                    },
+                    // controller: sex,
                     // keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
                         prefixIcon: const Icon(Icons.account_box),
@@ -231,7 +264,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                       return null;
                     },
-                    controller: fullname,
+                    onSaved: (value) {
+                      setState(() {
+                        fullname = value!;
+                      });
+                    },
+                    // controller: fullname,
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
                         prefixIcon: const Icon(Icons.account_box),
@@ -265,7 +303,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       }
                       return null;
                     },
-                    controller: lastname,
+                    onSaved: (value) {
+                      setState(() {
+                        lastname = value!;
+                      });
+                    },
+                    // controller: lastname,
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
                         prefixIcon: const Icon(Icons.account_box),
@@ -307,7 +350,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       print('------------${regex.hasMatch(value)}');
                       return null;
                     },
-                    controller: email,
+                    onSaved: (value) {
+                      setState(() {
+                        email = value!;
+                      });
+                    },
+                    // controller: email,
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
                         prefixIcon: const Icon(Icons.email),
@@ -341,7 +389,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       }
                       return null;
                     },
-                    controller: address,
+                    onSaved: (value) {
+                      setState(() {
+                        address = value!;
+                      });
+                    },
+                    // controller: address,
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
                         prefixIcon: const Icon(Icons.add_location_alt),
@@ -375,7 +428,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       }
                       return null;
                     },
-                    controller: birthday,
+                    onSaved: (value) {
+                      setState(() {
+                        birthday = value!;
+                      });
+                    },
+                    // controller: birthday,
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
                         prefixIcon:
@@ -411,7 +469,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       }
                       return null;
                     },
-                    controller: blood_type,
+                    onSaved: (value) {
+                      setState(() {
+                        blood_type = value!;
+                      });
+                    },
+                    // controller: blood_type,
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
                         prefixIcon: const Icon(Icons.adjust_outlined),
@@ -444,39 +507,72 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     minWidth: double.infinity,
                     height: 55,
                     onPressed: () async {
-                      var usersdata = await UsersProvider().addUserd(
-                          fullname.text,
-                          lastname.text,
-                          sex.text,
-                          birthday.text,
-                          email.text,
-                          tel.text,
-                          address.text,
-                          blood_type.text,
-                          password.text);
+                      // var usersdata = await UsersProvider().addUserd(
+                      //     fullname.text,
+                      //     lastname.text,
+                      //     sex.text,
+                      //     birthday.text,
+                      //     email.text,
+                      //     tel.text,
+                      //     address.text,
+                      //     blood_type.text,
+                      //     password.text);
 
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return const showAllUser();
-                          },
-                        ),
-                      );
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //     builder: (context) {
+                      //       return const showAllUser();
+                      //     },
+                      //   ),
+                      // );
 
-                      //   if (_formKey.currentState!.validate()) {
-                      //     ScaffoldMessenger.of(context).showSnackBar(
-                      //       const SnackBar(
-                      //           content: Text(
-                      //         'กำลังตรวจสอบ',
-                      //         style: TextStyle(fontSize: 20),
-                      //       )),
-                      //     );
-                      //   }
+                      if (_formKey.currentState!.validate()) {
+                        _formKey.currentState!.save();
+
+                        String c = '';
+
+                        try {
+                          var usersdata = await UsersProvider().addUserd(
+                              fullname,
+                              lastname,
+                              sex,
+                              birthday,
+                              email,
+                              tel,
+                              address,
+                              blood_type,
+                              password);
+                          Navigator.of(context).pushNamedAndRemoveUntil(
+                              '/mainMenu', (Route<dynamic> route) => false);
+                        } catch (e) {
+                          c = e.toString();
+                        }
+                        var message = '';
+                        print(password.length);
+                        print(tel.length);
+                        if (tel.length <= 9) {
+                          message = "กรุณากรอกเบอร์โทรศัพท์ให้ถูกต้อง";
+                        } else if (password.length <= 5) {
+                          message =
+                              'รหัสต้องไม่ตํ่ากว่า 6 ตัว กรุณากรอกข้อมูลใหม่';
+                        } else if (password != conpassword) {
+                          message = 'รหัสไม่ตรงกัน กรุณากรอกข้อมูลใหม่';
+                        } else if (c != null) {
+                          message =
+                              'ไม่สร้างบัณชีผู้ใช้ใหม่ได้ กรุณาลองใหม่อีกครั้ง';
+                        }
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                              content: Text(
+                            message,
+                            style: TextStyle(fontSize: 20),
+                          )),
+                        );
+                      }
                     },
                     color: Colors.blue,
                     shape: RoundedRectangleBorder(
-                        // side: const BorderSide(color: Colors.blue),
                         borderRadius: BorderRadius.circular(50)),
                     child: const Text(
                       "สร้างบัญชี",

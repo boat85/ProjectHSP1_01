@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
-
 import '../login/login.dart';
 import '../predict/prediction.dart';
+import '../profile/profile.dart';
 
 class mainMenu extends StatefulWidget {
   const mainMenu({super.key});
@@ -75,7 +73,7 @@ class _mainMenuState extends State<mainMenu> {
                             context,
                             MaterialPageRoute(
                               builder: (context) {
-                                return const LoginScreen();
+                                return const predictionScreen();
                               },
                             ),
                           );
@@ -131,7 +129,7 @@ class _mainMenuState extends State<mainMenu> {
                             context,
                             MaterialPageRoute(
                               builder: (context) {
-                                return const LoginScreen();
+                                return const profileScrenn();
                               },
                             ),
                           );

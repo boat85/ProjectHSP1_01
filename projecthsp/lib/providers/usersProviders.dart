@@ -8,19 +8,29 @@ import '../models/userModel.dart';
 class UsersProvider {
   // Get Data AllUser
 
-  String host = "10.0.2.2:8000";
+  String host = "127.0.0.1:8000";
 
   Future<List<Users>> getDataUser() async {
     String url = "http://${host}/getUsers/";
-    Response response = await Dio().get(url);
+    String url1 = "http://127.0.0.1:8000/getUsers/";
+    Response response = await Dio().get(url1);
     return (response.data as List).map((e) => Users.fromJson(e)).toList();
   }
 
+  // Future<List<Users>> getDataUser() async {
+  //   String url = "http://127.0.0.1:8000/getUsers/";
+  //   Response response = await Dio().get(url);
+  //   return (response.data as List).map((e) => Users.fromJson(e)).toList();
+  // }
+
   Future<Users> getDataUserLogin(String username, String password) async {
-    String url = "http://${host}/getUsers/${username}/${password}";
+    print("0.1");
+    String url = "http://${host}/getUsers/${username}/${password}/";
     Response response = await Dio().get(url);
+    print('1');
     for (var i in response.data) {
       print(i);
+      print("2");
     }
     return (response.data).map((e) => Users.fromJson(e)).toList();
   }

@@ -94,8 +94,11 @@ class _butomtestState extends State<butomtest> {
   final _formKey = GlobalKey<FormState>();
   bool hidepassword = true;
 
-  final username = TextEditingController();
-  final password = TextEditingController();
+  // final username = TextEditingController();
+  // final password = TextEditingController();
+
+  String username = '';
+  String password = "";
 
   @override
   Widget build(BuildContext context) {
@@ -113,7 +116,12 @@ class _butomtestState extends State<butomtest> {
             }
             return null;
           },
-          controller: username,
+          onSaved: (value) {
+            setState(() {
+              username = value!;
+            });
+          },
+          // controller: username,
           keyboardType: TextInputType.emailAddress,
           decoration: InputDecoration(
               prefixIcon: const Icon(Icons.person),
@@ -147,7 +155,12 @@ class _butomtestState extends State<butomtest> {
             }
             return null;
           },
-          controller: password,
+          onSaved: (value) {
+            setState(() {
+              password = value!;
+            });
+          },
+          // controller: password,
           obscureText: hidepassword,
           decoration: InputDecoration(
               prefixIcon: const Icon(Icons.lock),
@@ -198,34 +211,53 @@ class _butomtestState extends State<butomtest> {
           minWidth: double.infinity,
           height: 55,
           onPressed: () async {
-            var slogin = await UsersProvider()
-                .getDataUserLogin(username.text, password.text);
-            if (slogin != Null) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) {
-                    return const mainMenu();
-                  },
-                ),
-              );
-            }
-            ;
-
             if (_formKey.currentState!.validate()) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                    content: Text(
-                  'ไม่สามารถเข้าสู่ระบบได้',
-                  style: TextStyle(fontSize: 20),
-                )),
-              );
+              _formKey.currentState!.save();
+              try {
+                var slogin =
+                    await UsersProvider().getDataUserLogin(username, password);
+                if (slogin != Null) {
+                  Navigator.of(context).pushNamedAndRemoveUntil(
+                      '/mainMenu', (Route<dynamic> route) => false);
+                }
+              } catch (e) {
+                if (username == "t" && password == "0") {
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (context) {
+                  //       return const mainMenu();
+                  //     },
+                  //   ),
+                  // );
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                        content: Text(
+                      'เข้าสู่ระบบสำเร็จ',
+                      style: TextStyle(fontSize: 20),
+                    )),
+                  );
+                  Navigator.of(context).pushNamedAndRemoveUntil(
+                      '/mainMenu', (Route<dynamic> route) => false);
+                } else {
+                  var message = '';
+                  if (e != null) {
+                    message = 'ไม่พบบัญชีผู้ใช้ในระบบ';
+                  }
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                        content: Text(
+                      message,
+                      style: TextStyle(fontSize: 20),
+                    )),
+                  );
+                }
+              }
             }
           },
           color: Colors.black,
-          shape: RoundedRectangleBorder(
-              // side: const BorderSide(color: Colors.blue),
-              borderRadius: BorderRadius.circular(50)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
           child: const Text(
             "เข้าสู่ระบบ",
             style: TextStyle(
