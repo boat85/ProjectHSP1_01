@@ -31,6 +31,7 @@ class _predictionScreenState extends State<predictionScreen> {
                   ),
                   const Text("ประเมินปัญหาด้านสุขภาพ",
                       style: TextStyle(fontSize: 30)),
+                  Divider(),
                   const SizedBox(
                     height: 55,
                   ),
@@ -46,7 +47,7 @@ class _predictionScreenState extends State<predictionScreen> {
                     controller: tel,
                     // keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
-                        prefixIcon: const Icon(Icons.add_call),
+                        prefixIcon: const Icon(Icons.add_box_sharp),
                         hintText: "Feature 1",
                         labelText: "Feature 1",
                         floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -81,7 +82,7 @@ class _predictionScreenState extends State<predictionScreen> {
                     controller: tel,
                     // keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
-                        prefixIcon: const Icon(Icons.add_call),
+                        prefixIcon: const Icon(Icons.add_box_sharp),
                         hintText: "Feature 2",
                         labelText: "Feature 2",
                         floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -116,7 +117,7 @@ class _predictionScreenState extends State<predictionScreen> {
                     controller: tel,
                     // keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
-                        prefixIcon: const Icon(Icons.add_call),
+                        prefixIcon: const Icon(Icons.add_box_sharp),
                         hintText: "Feature 3",
                         labelText: "Feature 3",
                         floatingLabelBehavior: FloatingLabelBehavior.always,

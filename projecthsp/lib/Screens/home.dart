@@ -13,7 +13,8 @@ class _homeScreenState extends State<homeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
+        body: SingleChildScrollView(
+      child: Container(
         padding: const EdgeInsets.symmetric(vertical: 20),
         width: double.infinity,
         decoration: const BoxDecoration(
@@ -62,7 +63,7 @@ class _homeScreenState extends State<homeScreen> {
                 ],
               ),
             ),
-            Expanded(
+            Container(
               child: SingleChildScrollView(
                 child: Padding(
                   padding: const EdgeInsets.all(30.0),
@@ -160,6 +161,6 @@ class _homeScreenState extends State<homeScreen> {
           ],
         ),
       ),
-    );
+    ));
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'Screens/home.dart';
+import 'Screens/login/BMIregister.dart';
 import 'Screens/login/login.dart';
 import 'Screens/menu/mainmenu.dart';
 
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
         '/login': (context) => LoginScreen(),
         '/mainMenu': (context) => mainMenu(),
         '/home': (context) => homeScreen(),
-        // '/profile': (context) => ProfilePage(),
+        '/BMIRGTScreen': (context) => BMIRGTScreen(),
         // '/resetpass': (context) => ResetpassPage(),
         // '/score': (context) => ScorePage(total: 0.0, grade: ''),
       },

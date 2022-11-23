@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-
+import 'package:intl/intl.dart';
+import 'package:dropdown_textfield/dropdown_textfield.dart';
 import '../../models/userModel.dart';
 import '../../providers/usersProviders.dart';
 import '../Users/showAllUser.dart';
@@ -29,6 +30,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   // final weight = TextEditingController();
   // final height = TextEditingController();
   // final blood_type = TextEditingController();
+  TextEditingController dateinput = TextEditingController();
 
   String tel = '';
   String password = '';
@@ -41,7 +43,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   String address = '';
   String blood_type = '';
 
-  String test = '';
+  // String test = '';
 
   @override
   Widget build(BuildContext context) {
@@ -60,198 +62,32 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   const Text("สร้างบัญชีผู้ใช้ใหม่",
                       style: TextStyle(fontSize: 30)),
+                  Divider(),
                   const SizedBox(
-                    height: 55,
+                    height: 20,
                   ),
 
-                  ///....
-                  TextFormField(
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'กรุณากรอกเบอร์โทรศัพท์';
-                      }
-                      return null;
-                    },
-                    onSaved: (value) {
+                  RadioListTile(
+                    title: Text("ชาย"),
+                    value: "0",
+                    groupValue: sex,
+                    onChanged: (value) {
                       setState(() {
-                        tel = value!;
+                        sex = value.toString();
                       });
                     },
-                    // controller: tel,
-                    // keyboardType: TextInputType.emailAddress,
-                    decoration: InputDecoration(
-                        prefixIcon: const Icon(Icons.add_call),
-                        hintText: "กรอกเบอร์โทรศัพท์",
-                        labelText: "เบอร์โทรศัพท์",
-                        floatingLabelBehavior: FloatingLabelBehavior.always,
-                        contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 45,
-                          vertical: 20,
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(28),
-                            borderSide: const BorderSide(
-                              color: Colors.black,
-                            ),
-                            gapPadding: 10),
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(28),
-                            borderSide: const BorderSide(
-                              color: Colors.black,
-                            ),
-                            gapPadding: 10)),
-                  ),
-                  const SizedBox(
-                    height: 35,
-                  ),
-                  TextFormField(
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'กรุณากรอกรหัสผ่าน';
-                      }
-                      return null;
-                    },
-                    onSaved: (value) {
-                      setState(() {
-                        password = value!;
-                      });
-                    },
-                    // controller: password,
-                    obscureText: hidepassword,
-                    decoration: InputDecoration(
-                        prefixIcon: const Icon(Icons.lock),
-                        hintText: "กรอกรหัสผ่าน",
-                        labelText: "รหัสผ่าน",
-                        suffixIcon: GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              hidepassword = !hidepassword;
-                            });
-                          },
-                          child: Icon(
-                            hidepassword
-                                ? Icons.visibility_off
-                                : Icons.visibility,
-                            // color: hidepassword ? MyStyle.secondColor : Colors.white70,
-                          ),
-                        ),
-                        floatingLabelBehavior: FloatingLabelBehavior.always,
-                        contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 45,
-                          vertical: 20,
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(28),
-                            borderSide: const BorderSide(
-                              color: Colors.black,
-                            ),
-                            gapPadding: 10),
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(28),
-                            borderSide: const BorderSide(
-                              color: Colors.black,
-                            ),
-                            gapPadding: 10)),
-                  ),
-                  const SizedBox(
-                    height: 35,
-                  ),
-                  TextFormField(
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'กรุณากรอกรหัสผ่านยืนยัน';
-                      }
-                      return null;
-                    },
-                    onSaved: (value) {
-                      setState(() {
-                        conpassword = value!;
-                      });
-                    },
-                    // controller: conpassword,
-                    obscureText: hidepassword1,
-                    decoration: InputDecoration(
-                        prefixIcon: const Icon(Icons.lock),
-                        hintText: "กรอกรหัสผ่านยืนยัน",
-                        labelText: "รหัสผ่านยืนยัน",
-                        suffixIcon: GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              hidepassword1 = !hidepassword1;
-                            });
-                          },
-                          child: Icon(
-                            hidepassword1
-                                ? Icons.visibility_off
-                                : Icons.visibility,
-                            // color: hidepassword ? MyStyle.secondColor : Colors.white70,
-                          ),
-                        ),
-                        floatingLabelBehavior: FloatingLabelBehavior.always,
-                        contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 45,
-                          vertical: 20,
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(28),
-                            borderSide: const BorderSide(
-                              color: Colors.black,
-                            ),
-                            gapPadding: 10),
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(28),
-                            borderSide: const BorderSide(
-                              color: Colors.black,
-                            ),
-                            gapPadding: 10)),
-                  ),
-                  const SizedBox(
-                    height: 35,
-                  ),
-                  const Text("กรอกข้อมูลเพิ่มเติม",
-                      style: TextStyle(fontSize: 25)),
-                  const SizedBox(
-                    height: 55,
                   ),
 
-                  TextFormField(
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'กรุณากรอกชื่อ';
-                      }
-
-                      return null;
-                    },
-                    onSaved: (value) {
+                  RadioListTile(
+                    title: Text("หญิง"),
+                    value: "1",
+                    groupValue: sex,
+                    onChanged: (value) {
                       setState(() {
-                        sex = value!;
+                        sex = value.toString();
                       });
                     },
-                    // controller: sex,
-                    // keyboardType: TextInputType.emailAddress,
-                    decoration: InputDecoration(
-                        prefixIcon: const Icon(Icons.account_box),
-                        hintText: "เพศ",
-                        labelText: "เพศ",
-                        floatingLabelBehavior: FloatingLabelBehavior.always,
-                        contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 45,
-                          vertical: 20,
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(28),
-                            borderSide: const BorderSide(
-                              color: Colors.black,
-                            ),
-                            gapPadding: 10),
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(28),
-                            borderSide: const BorderSide(
-                              color: Colors.black,
-                            ),
-                            gapPadding: 10)),
                   ),
-
                   const SizedBox(
                     height: 35,
                   ),
@@ -314,6 +150,46 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         prefixIcon: const Icon(Icons.account_box),
                         hintText: "กรอกนามสกุล",
                         labelText: "นามสกุลจริง",
+                        floatingLabelBehavior: FloatingLabelBehavior.always,
+                        contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 45,
+                          vertical: 20,
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(28),
+                            borderSide: const BorderSide(
+                              color: Colors.black,
+                            ),
+                            gapPadding: 10),
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(28),
+                            borderSide: const BorderSide(
+                              color: Colors.black,
+                            ),
+                            gapPadding: 10)),
+                  ),
+                  const SizedBox(
+                    height: 35,
+                  ),
+
+                  TextFormField(
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'กรุณากรอกเบอร์โทรศัพท์';
+                      }
+                      return null;
+                    },
+                    onSaved: (value) {
+                      setState(() {
+                        tel = value!;
+                      });
+                    },
+                    // controller: tel,
+                    // keyboardType: TextInputType.emailAddress,
+                    decoration: InputDecoration(
+                        prefixIcon: const Icon(Icons.add_call),
+                        hintText: "กรอกเบอร์โทรศัพท์",
+                        labelText: "เบอร์โทรศัพท์",
                         floatingLabelBehavior: FloatingLabelBehavior.always,
                         contentPadding: const EdgeInsets.symmetric(
                           horizontal: 45,
@@ -421,6 +297,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   const SizedBox(
                     height: 35,
                   ),
+
                   TextFormField(
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -433,13 +310,137 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         birthday = value!;
                       });
                     },
-                    // controller: birthday,
-                    keyboardType: TextInputType.emailAddress,
+                    controller: dateinput,
                     decoration: InputDecoration(
-                        prefixIcon:
-                            const Icon(Icons.admin_panel_settings_sharp),
+                        prefixIcon: const Icon(Icons.calendar_today),
                         hintText: "กรอกวัน/เดือน/ปีเกิด",
                         labelText: "วัน/เดือน/ปีเกิด",
+                        floatingLabelBehavior: FloatingLabelBehavior.always,
+                        contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 45,
+                          vertical: 20,
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(28),
+                            borderSide: const BorderSide(
+                              color: Colors.black,
+                            ),
+                            gapPadding: 10),
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(28),
+                            borderSide: const BorderSide(
+                              color: Colors.black,
+                            ),
+                            gapPadding: 10)),
+
+                    // decoration: InputDecoration(
+                    //     icon: Icon(Icons.calendar_today),
+                    //     labelText: "วัน/เดือน/ปีเกิด"),
+                    readOnly: true,
+                    onTap: () async {
+                      DateTime? pickedDate = await showDatePicker(
+                          context: context,
+                          initialDate: DateTime.now(),
+                          firstDate: DateTime(1950),
+                          lastDate: DateTime(2101));
+
+                      if (pickedDate != null) {
+                        // print(pickedDate);
+                        String formattedDate =
+                            DateFormat('yyyy-MM-dd').format(pickedDate);
+                        // print(formattedDate);
+
+                        setState(() {
+                          dateinput.text = formattedDate;
+                        });
+                      } else {
+                        print("Date is not selected");
+                      }
+                    },
+                  ),
+
+                  const SizedBox(
+                    height: 35,
+                  ),
+
+                  // TextFormField(
+                  //   validator: (value) {
+                  //     if (value == null || value.isEmpty) {
+                  //       return 'กรุณากรอกหมู่เลือด';
+                  //     }
+                  //     return null;
+                  //   },
+                  //   onSaved: (value) {
+                  //     setState(() {
+                  //       blood_type = value!;
+                  //     });
+                  //   },
+                  //   // controller: blood_type,
+                  //   keyboardType: TextInputType.emailAddress,
+                  //   decoration: InputDecoration(
+                  //       prefixIcon: const Icon(Icons.adjust_outlined),
+                  //       hintText: "กรอกโรคหมู่เลือด",
+                  //       labelText: "หมู่เลือด",
+                  //       floatingLabelBehavior: FloatingLabelBehavior.always,
+                  //       contentPadding: const EdgeInsets.symmetric(
+                  //         horizontal: 45,
+                  //         vertical: 20,
+                  //       ),
+                  //       enabledBorder: OutlineInputBorder(
+                  //           borderRadius: BorderRadius.circular(28),
+                  //           borderSide: const BorderSide(
+                  //             color: Colors.black,
+                  //           ),
+                  //           gapPadding: 10),
+                  //       focusedBorder: OutlineInputBorder(
+                  //           borderRadius: BorderRadius.circular(28),
+                  //           borderSide: const BorderSide(
+                  //             color: Colors.black,
+                  //           ),
+                  //           gapPadding: 10)),
+                  // ),
+
+                  SizedBox(
+                    height: 35,
+                  ),
+                  const Text("กรอกข้อมูลรหัสผ่าน",
+                      style: TextStyle(fontSize: 25)),
+                  Divider(),
+                  const SizedBox(
+                    height: 35,
+                  ),
+
+                  TextFormField(
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'กรุณากรอกรหัสผ่าน';
+                      }
+                      return null;
+                    },
+                    onSaved: (value) {
+                      setState(() {
+                        password = value!;
+                      });
+                    },
+                    // controller: password,
+                    obscureText: hidepassword,
+                    decoration: InputDecoration(
+                        prefixIcon: const Icon(Icons.lock),
+                        hintText: "กรอกรหัสผ่าน",
+                        labelText: "รหัสผ่าน",
+                        suffixIcon: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              hidepassword = !hidepassword;
+                            });
+                          },
+                          child: Icon(
+                            hidepassword
+                                ? Icons.visibility_off
+                                : Icons.visibility,
+                            // color: hidepassword ? MyStyle.secondColor : Colors.white70,
+                          ),
+                        ),
                         floatingLabelBehavior: FloatingLabelBehavior.always,
                         contentPadding: const EdgeInsets.symmetric(
                           horizontal: 45,
@@ -461,25 +462,37 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   const SizedBox(
                     height: 35,
                   ),
-
                   TextFormField(
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'กรุณากรอกหมู่เลือด';
+                        return 'กรุณากรอกรหัสผ่านยืนยัน';
                       }
                       return null;
                     },
                     onSaved: (value) {
                       setState(() {
-                        blood_type = value!;
+                        conpassword = value!;
                       });
                     },
-                    // controller: blood_type,
-                    keyboardType: TextInputType.emailAddress,
+                    // controller: conpassword,
+                    obscureText: hidepassword1,
                     decoration: InputDecoration(
-                        prefixIcon: const Icon(Icons.adjust_outlined),
-                        hintText: "กรอกโรคหมู่เลือด",
-                        labelText: "หมู่เลือด",
+                        prefixIcon: const Icon(Icons.lock),
+                        hintText: "กรอกรหัสผ่านยืนยัน",
+                        labelText: "รหัสผ่านยืนยัน",
+                        suffixIcon: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              hidepassword1 = !hidepassword1;
+                            });
+                          },
+                          child: Icon(
+                            hidepassword1
+                                ? Icons.visibility_off
+                                : Icons.visibility,
+                            // color: hidepassword ? MyStyle.secondColor : Colors.white70,
+                          ),
+                        ),
                         floatingLabelBehavior: FloatingLabelBehavior.always,
                         contentPadding: const EdgeInsets.symmetric(
                           horizontal: 45,
@@ -498,7 +511,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             ),
                             gapPadding: 10)),
                   ),
-                  //// test ------------------------------------
+
+                  ///
                   const SizedBox(
                     height: 35,
                   ),
@@ -526,49 +540,54 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       //     },
                       //   ),
                       // );
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                          '/BMIRGTScreen', (Route<dynamic> route) => false);
 
                       if (_formKey.currentState!.validate()) {
                         _formKey.currentState!.save();
 
                         String c = '';
 
-                        try {
-                          var usersdata = await UsersProvider().addUserd(
-                              fullname,
-                              lastname,
-                              sex,
-                              birthday,
-                              email,
-                              tel,
-                              address,
-                              blood_type,
-                              password);
-                          Navigator.of(context).pushNamedAndRemoveUntil(
-                              '/mainMenu', (Route<dynamic> route) => false);
-                        } catch (e) {
-                          c = e.toString();
-                        }
-                        var message = '';
-                        print(password.length);
-                        print(tel.length);
-                        if (tel.length <= 9) {
-                          message = "กรุณากรอกเบอร์โทรศัพท์ให้ถูกต้อง";
-                        } else if (password.length <= 5) {
-                          message =
-                              'รหัสต้องไม่ตํ่ากว่า 6 ตัว กรุณากรอกข้อมูลใหม่';
-                        } else if (password != conpassword) {
-                          message = 'รหัสไม่ตรงกัน กรุณากรอกข้อมูลใหม่';
-                        } else if (c != null) {
-                          message =
-                              'ไม่สร้างบัณชีผู้ใช้ใหม่ได้ กรุณาลองใหม่อีกครั้ง';
-                        }
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                              content: Text(
-                            message,
-                            style: TextStyle(fontSize: 20),
-                          )),
-                        );
+                        // try {
+                        //   var usersdata = await UsersProvider().addUserd(
+                        //       fullname,
+                        //       lastname,
+                        //       sex,
+                        //       birthday,
+                        //       email,
+                        //       tel,
+                        //       address,
+                        //       blood_type,
+                        //       password);
+                        //   Navigator.of(context).pushNamedAndRemoveUntil(
+                        //       '/mainMenu', (Route<dynamic> route) => false);
+                        // } catch (e) {
+                        //   c = e.toString();
+                        // }
+                        // var message = '';
+                        // print(password.length);
+                        // print(tel.length);
+                        // if (sex.isEmpty){
+                        //   message = "กรุณาเลือกเพศ";
+                        // }
+                        // if (tel.length <= 9) {
+                        //   message = "กรุณากรอกเบอร์โทรศัพท์ให้ถูกต้อง";
+                        // } else if (password.length <= 5) {
+                        //   message =
+                        //       'รหัสต้องไม่ตํ่ากว่า 6 ตัว กรุณากรอกข้อมูลใหม่';
+                        // } else if (password != conpassword) {
+                        //   message = 'รหัสไม่ตรงกัน กรุณากรอกข้อมูลใหม่';
+                        // } else if (c != null) {
+                        //   message =
+                        //       'ไม่สร้างบัณชีผู้ใช้ใหม่ได้ กรุณาลองใหม่อีกครั้ง';
+                        // }
+                        // ScaffoldMessenger.of(context).showSnackBar(
+                        //   SnackBar(
+                        //       content: Text(
+                        //     message,
+                        //     style: TextStyle(fontSize: 20),
+                        //   )),
+                        // );
                       }
                     },
                     color: Colors.blue,

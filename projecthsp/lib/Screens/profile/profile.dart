@@ -62,9 +62,12 @@ class _profileScrennState extends State<profileScrenn> {
                             children: const [
                               CircleAvatar(
                                 radius: 50.0,
+                                child: const Icon(Icons.account_circle_outlined,
+                                    size: 80),
+                                // backgroundImage: AssetImage('images'),
                               ),
                               Text(
-                                'Tawan Kaewrod',
+                                'ผู้ดูแล ระบบ',
                                 style: TextStyle(
                                   fontSize: 30.0,
                                   fontWeight: FontWeight.bold,
@@ -75,7 +78,7 @@ class _profileScrennState extends State<profileScrenn> {
                                 height: 20,
                               ),
                               SizedBox(
-                                height: 20.0,
+                                height: 5.0,
                                 width: 300,
                                 child: Divider(
                                   color: Color.fromARGB(255, 255, 255, 255),
@@ -99,10 +102,10 @@ class _profileScrennState extends State<profileScrenn> {
                                       color: Colors.teal,
                                     ),
                                     title: Text(
-                                      'ชาย',
+                                      'ไม่มีเพศ',
                                       style: TextStyle(
                                           // fontFamily: 'SourceSansPro',
-                                          fontSize: 20,
+                                          fontSize: 15,
                                           color: Colors.teal.shade900),
                                     ),
                                   ),
@@ -113,7 +116,7 @@ class _profileScrennState extends State<profileScrenn> {
                                       vertical: 10.0, horizontal: 25.0),
                                   child: ListTile(
                                     leading: const Icon(
-                                      Icons.admin_panel_settings_sharp,
+                                      Icons.calendar_today,
                                       color: Colors.teal,
                                     ),
                                     title: Text(
@@ -151,11 +154,11 @@ class _profileScrennState extends State<profileScrenn> {
                                       vertical: 10.0, horizontal: 25.0),
                                   child: ListTile(
                                     leading: const Icon(
-                                      Icons.account_box,
+                                      Icons.attach_email,
                                       color: Colors.teal,
                                     ),
                                     title: Text(
-                                      'Tawankeawrod@gmail.com',
+                                      'Admin@gmail.com',
                                       style: TextStyle(
                                           fontSize: 20,
                                           color: Colors.teal.shade900),
@@ -168,7 +171,7 @@ class _profileScrennState extends State<profileScrenn> {
                                       vertical: 10.0, horizontal: 25.0),
                                   child: ListTile(
                                     leading: const Icon(
-                                      Icons.add_location_alt,
+                                      Icons.add_location_rounded,
                                       color: Colors.teal,
                                     ),
                                     title: Text(
