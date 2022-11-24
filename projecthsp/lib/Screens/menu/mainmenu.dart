@@ -111,7 +111,7 @@ class _mainMenuState extends State<mainMenu> {
                             side: const BorderSide(color: Colors.white),
                             borderRadius: BorderRadius.circular(50)),
                         child: const Text(
-                          "ประวัติ",
+                          "ข้อมูลส่วนตัว",
                           style: TextStyle(
                               fontSize: 20,
                               color: Colors.white,

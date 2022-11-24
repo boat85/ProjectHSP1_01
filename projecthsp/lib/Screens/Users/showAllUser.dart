@@ -12,8 +12,15 @@ class showAllUser extends StatefulWidget {
 class _showAllUserState extends State<showAllUser> {
   List<Users> usersdata = [];
 
+  // dio
+  // void setUserData() async {
+  //   usersdata = await UsersProvider().getDataUser();
+  //   setState(() {});
+  // }
+
+  // http
   void setUserData() async {
-    usersdata = await UsersProvider().getDataUser();
+    usersdata = (await UsersProvider().getDataUser()) as List<Users>;
     setState(() {});
   }
 

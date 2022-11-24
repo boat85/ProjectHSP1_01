@@ -16,8 +16,15 @@ class _profileScrennState extends State<profileScrenn> {
   List<Users> usersdata = [];
   List<String> test = ["01"];
 
+  //dio
+  // void setUserData() async {
+  //   usersdata = await UsersProvider().getDataUser();
+  //   setState(() {});
+  // }
+
+//http
   void setUserData() async {
-    usersdata = await UsersProvider().getDataUser();
+    usersdata = (await UsersProvider().getDataUser()) as List<Users>;
     setState(() {});
   }
 
@@ -57,7 +64,7 @@ class _profileScrennState extends State<profileScrenn> {
                           height: 30,
                         ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 30),
+                          padding: const EdgeInsets.symmetric(vertical: 10),
                           child: Column(
                             children: const [
                               CircleAvatar(
@@ -90,12 +97,12 @@ class _profileScrennState extends State<profileScrenn> {
                         Container(
                           child: SingleChildScrollView(
                             child: Padding(
-                              padding: const EdgeInsets.all(30.0),
+                              padding: const EdgeInsets.all(20.0),
                               child: Column(children: [
                                 //sex
                                 Card(
                                   margin: const EdgeInsets.symmetric(
-                                      vertical: 10.0, horizontal: 25.0),
+                                      vertical: 10.0, horizontal: 15.0),
                                   child: ListTile(
                                     leading: const Icon(
                                       Icons.account_box,
@@ -113,7 +120,7 @@ class _profileScrennState extends State<profileScrenn> {
                                 // birthday
                                 Card(
                                   margin: const EdgeInsets.symmetric(
-                                      vertical: 10.0, horizontal: 25.0),
+                                      vertical: 10.0, horizontal: 15.0),
                                   child: ListTile(
                                     leading: const Icon(
                                       Icons.calendar_today,
@@ -123,7 +130,7 @@ class _profileScrennState extends State<profileScrenn> {
                                       '14/05/2543',
                                       style: TextStyle(
                                           // fontFamily: 'SourceSansPro',
-                                          fontSize: 20,
+                                          fontSize: 15,
                                           color: Colors.teal.shade900),
                                     ),
                                   ),
@@ -132,7 +139,7 @@ class _profileScrennState extends State<profileScrenn> {
                                 //tel
                                 Card(
                                   margin: const EdgeInsets.symmetric(
-                                      vertical: 10.0, horizontal: 25.0),
+                                      vertical: 10.0, horizontal: 15.0),
                                   child: ListTile(
                                     leading: const Icon(
                                       Icons.phone,
@@ -142,7 +149,7 @@ class _profileScrennState extends State<profileScrenn> {
                                       '0999999999',
                                       style: TextStyle(
                                           // fontFamily: 'SourceSansPro',
-                                          fontSize: 20,
+                                          fontSize: 15,
                                           color: Colors.teal.shade900),
                                     ),
                                   ),
@@ -151,7 +158,7 @@ class _profileScrennState extends State<profileScrenn> {
                                 // email
                                 Card(
                                   margin: const EdgeInsets.symmetric(
-                                      vertical: 10.0, horizontal: 25.0),
+                                      vertical: 10.0, horizontal: 15.0),
                                   child: ListTile(
                                     leading: const Icon(
                                       Icons.attach_email,
@@ -160,7 +167,7 @@ class _profileScrennState extends State<profileScrenn> {
                                     title: Text(
                                       'Admin@gmail.com',
                                       style: TextStyle(
-                                          fontSize: 20,
+                                          fontSize: 15,
                                           color: Colors.teal.shade900),
                                     ),
                                   ),
@@ -168,7 +175,7 @@ class _profileScrennState extends State<profileScrenn> {
                                 // address
                                 Card(
                                   margin: const EdgeInsets.symmetric(
-                                      vertical: 10.0, horizontal: 25.0),
+                                      vertical: 10.0, horizontal: 15.0),
                                   child: ListTile(
                                     leading: const Icon(
                                       Icons.add_location_rounded,
@@ -178,7 +185,7 @@ class _profileScrennState extends State<profileScrenn> {
                                       'ใต้ฟ้าบนดิน',
                                       style: TextStyle(
                                           // fontFamily: 'SourceSansPro',
-                                          fontSize: 20,
+                                          fontSize: 15,
                                           color: Colors.teal.shade900),
                                     ),
                                   ),
@@ -188,17 +195,17 @@ class _profileScrennState extends State<profileScrenn> {
 
                                 Card(
                                   margin: const EdgeInsets.symmetric(
-                                      vertical: 10.0, horizontal: 25.0),
+                                      vertical: 10, horizontal: 15.0),
                                   child: ListTile(
                                     leading: const Icon(
                                       Icons.adjust_outlined,
-                                      color: Colors.teal,
+                                      color: Color.fromARGB(255, 0, 255, 0),
                                     ),
                                     title: Text(
                                       'B',
                                       style: TextStyle(
                                           // fontFamily: 'SourceSansPro',
-                                          fontSize: 20,
+                                          fontSize: 15,
                                           color: Colors.teal.shade900),
                                     ),
                                   ),

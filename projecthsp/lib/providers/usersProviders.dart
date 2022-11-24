@@ -5,23 +5,33 @@ import 'package:flutter/cupertino.dart';
 
 import '../models/userModel.dart';
 
+import 'package:http/http.dart' as http;
+
 class UsersProvider {
   // Get Data AllUser
 
   String host = "127.0.0.1:8000";
 
-  Future<List<Users>> getDataUser() async {
-    String url = "http://${host}/getUsers/";
-    String url1 = "http://127.0.0.1:8000/getUsers/";
-    Response response = await Dio().get(url1);
-    return (response.data as List).map((e) => Users.fromJson(e)).toList();
-  }
+  // Future<List<Users>> getDataUser() async {
+  //   String url = "http://${host}/getUsers/";
+  //   String url1 = "http://127.0.0.1:8000/getUsers/";
+  //   Response response = await Dio().get(url1);
+  //   return (response.data as List).map((e) => Users.fromJson(e)).toList();
+  // }
 
   // Future<List<Users>> getDataUser() async {
   //   String url = "http://127.0.0.1:8000/getUsers/";
   //   Response response = await Dio().get(url);
   //   return (response.data as List).map((e) => Users.fromJson(e)).toList();
   // }
+
+  Future<Users> getDataUser() async {
+    print("test register");
+    final url = Uri.parse("http://127.0.0.1:8000/getUsers/");
+    var response = (await http.get(url));
+    // body: jsonEncode(user.toJson()))) as Response;
+    return Users.fromJson(jsonDecode(response.body));
+  }
 
   Future<Users> getDataUserLogin(String username, String password) async {
     print("0.1");
@@ -62,12 +72,12 @@ class UsersProvider {
     return Users.fromJson(response.data);
   }
 
-  Future<Users> updateUserd(String fname, String lname, String id) async {
-    final url = "http://127.0.0.1:8000/getUsers/${id}/update";
-    Response response =
-        await Dio().put(url, data: {'fname': fname, 'lname': lname});
-    return Users.fromJson(response.data);
-  }
+  // Future<Users> updateUserd(String fname, String lname, String id) async {
+  //   final url = "http://127.0.0.1:8000/getUsers/${id}/update";
+  //   Response response =
+  //       await Dio().put(url, data: {'fname': fname, 'lname': lname});
+  //   return Users.fromJson(response.data);
+  // }
 
   Future userdeleted(dynamic id) async {
     final url = "http://127.0.0.1:8000/getUsers/${id}/delete";

@@ -12,13 +12,12 @@ class _BMIRGTScreenState extends State<BMIRGTScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text("")),
+        // appBar: AppBar(title: const Text("")),
         body: Padding(
-            padding: const EdgeInsets.all(30),
+            padding: const EdgeInsets.all(15),
             child: Form(
                 child: SingleChildScrollView(
                     child: Container(
-              // padding: const EdgeInsets.all(20),
               child: Column(
                 children: <Widget>[
                   const SizedBox(
@@ -45,9 +44,9 @@ class _butomtestState extends State<butomtest> {
   final _formKey = GlobalKey<FormState>();
   bool hidepassword = true;
 
-  late double width;
-  late double height;
-  late double pressure;
+  late String width;
+  late String height;
+  late String pressure;
 
   bool v1 = false;
   bool v2 = false;
@@ -63,7 +62,8 @@ class _butomtestState extends State<butomtest> {
       key: _formKey,
       child: Column(children: [
         SizedBox(
-          height: size.height * 0.00005,
+          // height: size.height * 0.0000001,
+          height: 15,
         ),
         Text(
           'ข้อมูลส่วนตัว',
@@ -84,7 +84,7 @@ class _butomtestState extends State<butomtest> {
           },
           onSaved: (value) {
             setState(() {
-              height = value! as double;
+              height = value!;
             });
           },
           keyboardType: TextInputType.number,
@@ -94,8 +94,8 @@ class _butomtestState extends State<butomtest> {
               labelText: "ส่วนสูง",
               floatingLabelBehavior: FloatingLabelBehavior.always,
               contentPadding: const EdgeInsets.symmetric(
-                horizontal: 45,
-                vertical: 20,
+                horizontal: 70,
+                vertical: 10,
               ),
               enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(28),
@@ -122,7 +122,7 @@ class _butomtestState extends State<butomtest> {
           },
           onSaved: (value) {
             setState(() {
-              width = value! as double;
+              width = value!;
             });
           },
           keyboardType: TextInputType.number,
@@ -133,7 +133,7 @@ class _butomtestState extends State<butomtest> {
               floatingLabelBehavior: FloatingLabelBehavior.always,
               contentPadding: const EdgeInsets.symmetric(
                 horizontal: 45,
-                vertical: 20,
+                vertical: 10,
               ),
               enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(28),
@@ -160,7 +160,7 @@ class _butomtestState extends State<butomtest> {
           },
           onSaved: (value) {
             setState(() {
-              pressure = value! as double;
+              pressure = value!;
             });
           },
           keyboardType: TextInputType.number,
@@ -171,7 +171,7 @@ class _butomtestState extends State<butomtest> {
               floatingLabelBehavior: FloatingLabelBehavior.always,
               contentPadding: const EdgeInsets.symmetric(
                 horizontal: 45,
-                vertical: 20,
+                vertical: 10,
               ),
               enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(28),
@@ -272,7 +272,7 @@ class _butomtestState extends State<butomtest> {
               floatingLabelBehavior: FloatingLabelBehavior.always,
               contentPadding: const EdgeInsets.symmetric(
                 horizontal: 45,
-                vertical: 20,
+                vertical: 10,
               ),
               enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(28),
@@ -379,50 +379,41 @@ class _butomtestState extends State<butomtest> {
           minWidth: double.infinity,
           height: 55,
           onPressed: () async {
-            Navigator.of(context).pushNamedAndRemoveUntil(
-                '/mainMenu', (Route<dynamic> route) => false);
             if (_formKey.currentState!.validate()) {
               _formKey.currentState!.save();
-              // try {
-              //   var slogin =
-              //       await UsersProvider().getDataUserLogin(username, password);
-              //   if (slogin != Null) {
-              //     Navigator.of(context).pushNamedAndRemoveUntil(
-              //         '/mainMenu', (Route<dynamic> route) => false);
-              //   }
-              // } catch (e) {
-              //   if (username == "t" && password == "0") {
-              //     // Navigator.push(
-              //     //   context,
-              //     //   MaterialPageRoute(
-              //     //     builder: (context) {
-              //     //       return const mainMenu();
-              //     //     },
-              //     //   ),
-              //     // );
-              //     ScaffoldMessenger.of(context).showSnackBar(
-              //       const SnackBar(
-              //           content: Text(
-              //         'เข้าสู่ระบบสำเร็จ',
-              //         style: TextStyle(fontSize: 20),
-              //       )),
-              //     );
-              //     Navigator.of(context).pushNamedAndRemoveUntil(
-              //         '/mainMenu', (Route<dynamic> route) => false);
-              //   } else {
-              //     var message = '';
-              //     if (e != null) {
-              //       message = 'ไม่พบบัญชีผู้ใช้ในระบบ';
-              //     }
-              //     ScaffoldMessenger.of(context).showSnackBar(
-              //       SnackBar(
-              //           content: Text(
-              //         message,
-              //         style: TextStyle(fontSize: 20),
-              //       )),
-              //     );
-              //   }
-              // }
+              String c = '';
+
+              try {
+                // var usersdata = await UsersProvider().addUserd(
+                //     fullname,
+                //     lastname,
+                //     sex,
+                //     birthday,
+                //     email,
+                //     tel,
+                //     address,
+                //     blood_type,
+                //     password);
+
+              } catch (e) {
+                c = e.toString();
+              }
+
+              print(v1);
+              print(v2);
+
+              var message = '';
+              if (blood_type.isEmpty == true) {
+                message = 'กรุณาเลือกหมู่เลือด';
+              }
+
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                    content: Text(
+                  message,
+                  style: TextStyle(fontSize: 20),
+                )),
+              );
             }
           },
           color: Colors.black,
@@ -437,6 +428,20 @@ class _butomtestState extends State<butomtest> {
         const SizedBox(
           height: 10,
         ),
+        InkWell(
+          child: const Text(
+            "test ->",
+            style: TextStyle(
+                color: Colors.red, fontWeight: FontWeight.bold, fontSize: 15),
+          ),
+          onTap: () {
+            Navigator.of(context).pushNamedAndRemoveUntil(
+                '/mainMenu', (Route<dynamic> route) => false);
+          },
+        ),
+        const SizedBox(
+          height: 10,
+        )
       ]),
     );
   }

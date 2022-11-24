@@ -50,7 +50,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return Scaffold(
       appBar: AppBar(title: const Text("")),
       body: Padding(
-        padding: const EdgeInsets.all(30),
+        padding: const EdgeInsets.all(25),
         child: Form(
             key: _formKey,
             child: SingleChildScrollView(
@@ -58,7 +58,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const SizedBox(
-                    height: 25,
+                    height: 15,
                   ),
                   const Text("สร้างบัญชีผู้ใช้ใหม่",
                       style: TextStyle(fontSize: 30)),
@@ -359,10 +359,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     },
                   ),
 
-                  const SizedBox(
-                    height: 35,
-                  ),
-
                   // TextFormField(
                   //   validator: (value) {
                   //     if (value == null || value.isEmpty) {
@@ -401,10 +397,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   // ),
 
                   SizedBox(
-                    height: 35,
+                    height: 20,
                   ),
-                  const Text("กรอกข้อมูลรหัสผ่าน",
-                      style: TextStyle(fontSize: 25)),
+                  const Text("กรอกรหัสผ่าน", style: TextStyle(fontSize: 25)),
                   Divider(),
                   const SizedBox(
                     height: 35,
@@ -540,54 +535,63 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       //     },
                       //   ),
                       // );
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          '/BMIRGTScreen', (Route<dynamic> route) => false);
 
                       if (_formKey.currentState!.validate()) {
                         _formKey.currentState!.save();
 
                         String c = '';
 
-                        // try {
-                        //   var usersdata = await UsersProvider().addUserd(
-                        //       fullname,
-                        //       lastname,
-                        //       sex,
-                        //       birthday,
-                        //       email,
-                        //       tel,
-                        //       address,
-                        //       blood_type,
-                        //       password);
-                        //   Navigator.of(context).pushNamedAndRemoveUntil(
-                        //       '/mainMenu', (Route<dynamic> route) => false);
-                        // } catch (e) {
-                        //   c = e.toString();
-                        // }
-                        // var message = '';
-                        // print(password.length);
+                        try {
+                          var usersdata = await UsersProvider().addUserd(
+                              fullname,
+                              lastname,
+                              sex,
+                              birthday,
+                              email,
+                              tel,
+                              address,
+                              blood_type,
+                              password);
+                          // Navigator.of(context).pushNamedAndRemoveUntil(
+                          //     '/mainMenu', (Route<dynamic> route) => false);
+                        } catch (e) {
+                          c = e.toString();
+                        }
+
+                        var message = '';
+                        // print('sex' + sex);
                         // print(tel.length);
-                        // if (sex.isEmpty){
-                        //   message = "กรุณาเลือกเพศ";
-                        // }
-                        // if (tel.length <= 9) {
-                        //   message = "กรุณากรอกเบอร์โทรศัพท์ให้ถูกต้อง";
-                        // } else if (password.length <= 5) {
-                        //   message =
-                        //       'รหัสต้องไม่ตํ่ากว่า 6 ตัว กรุณากรอกข้อมูลใหม่';
-                        // } else if (password != conpassword) {
-                        //   message = 'รหัสไม่ตรงกัน กรุณากรอกข้อมูลใหม่';
-                        // } else if (c != null) {
-                        //   message =
-                        //       'ไม่สร้างบัณชีผู้ใช้ใหม่ได้ กรุณาลองใหม่อีกครั้ง';
-                        // }
-                        // ScaffoldMessenger.of(context).showSnackBar(
-                        //   SnackBar(
-                        //       content: Text(
-                        //     message,
-                        //     style: TextStyle(fontSize: 20),
-                        //   )),
-                        // );
+                        if (sex.isEmpty == true) {
+                          message = "กรุณาเลือกเพศ";
+                        } else if (tel.length <= 9) {
+                          message =
+                              "กรุณากรอกเบอร์โทรศัพท์ให้ถูกต้อง กรอกให้ครบ 10 หลัก";
+                          try {
+                            int.parse(tel) is int == false;
+                            print("tel int yes");
+                          } catch (e) {
+                            message = "กรุณากรอกเบอร์โทรศัพท์ให้เป็นตัวเลข";
+                          }
+                        } else if (password.length <= 5) {
+                          message =
+                              'รหัสต้องไม่ตํ่ากว่า 6 ตัว กรุณากรอกข้อมูลใหม่';
+                        } else if (password != conpassword) {
+                          message = 'รหัสไม่ตรงกัน กรุณากรอกข้อมูลใหม่';
+                        } else if (c != null) {
+                          message =
+                              'ไม่สร้างบัณชีผู้ใช้ใหม่ได้ เนื่องจากมีปัญหาทางด้าน Server กรุณาลองใหม่อีกครั้งในภายหลัก';
+                        } else {
+                          message = 'สร้างบัญชีใหม่สำเร็จ';
+                          Navigator.of(context).pushNamedAndRemoveUntil(
+                              '/mainMenu', (Route<dynamic> route) => false);
+                        }
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                              content: Text(
+                            message,
+                            style: TextStyle(fontSize: 20),
+                          )),
+                        );
                       }
                     },
                     color: Colors.blue,
@@ -597,6 +601,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       "สร้างบัญชี",
                       style: TextStyle(fontSize: 20, color: Colors.white),
                     ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  InkWell(
+                    child: const Text(
+                      "test ->",
+                      style: TextStyle(
+                          color: Colors.red,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15),
+                    ),
+                    onTap: () {
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                          '/BMIRGTScreen', (Route<dynamic> route) => false);
+                    },
                   ),
                   const SizedBox(
                     height: 20,
