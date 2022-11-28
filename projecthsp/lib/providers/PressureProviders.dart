@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:projecthsp/models/PressureModel.dart';
 
-class BMIProvider {
+class PressureProvider {
   String host = "127.0.0.1:8000";
 
   Future<List<Pressure>> getDataPressure() async {

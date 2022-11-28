@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:dropdown_textfield/dropdown_textfield.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../models/userModel.dart';
 import '../../providers/usersProviders.dart';
 import '../Users/showAllUser.dart';
@@ -538,11 +540,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                       if (_formKey.currentState!.validate()) {
                         _formKey.currentState!.save();
+                        final SharedPreferences _prefs =
+                            await SharedPreferences.getInstance();
 
                         String c = '';
+                        var message = '';
 
                         try {
-                          var usersdata = await UsersProvider().addUserd(
+                          Users userlogin = await UsersProvider().addUserd(
                               fullname,
                               lastname,
                               sex,
@@ -552,15 +557,34 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               address,
                               blood_type,
                               password);
-                          // Navigator.of(context).pushNamedAndRemoveUntil(
-                          //     '/mainMenu', (Route<dynamic> route) => false);
+
+                          // Users userlogin = await UsersProvider()
+                          //     .getDataUserLogin(tel, password);
+
+                          if (userlogin.id != Null) {
+                            _prefs.setString("id", userlogin.id);
+                            _prefs.setString("fullname", userlogin.fullname);
+                            _prefs.setString("lastname", userlogin.lastname);
+                            _prefs.setString("sex", userlogin.sex);
+                            _prefs.setString("birthday", userlogin.birthday);
+                            _prefs.setString("email", userlogin.email);
+                            _prefs.setString("address", userlogin.address);
+                            _prefs.setString("tel", userlogin.tel);
+                            _prefs.setString("password", userlogin.password);
+                          }
+                          // _prefs.setString("id", userlogin.id);
+                          // _prefs.setString("fullname", fullname);
+                          // _prefs.setString("lastname", lastname);
+                          // _prefs.setString("sex", sex);
+                          // _prefs.setString("birthday", birthday);
+                          // _prefs.setString("email", email);
+                          // _prefs.setString("address", address);
+                          // _prefs.setString("bloodType", blood_type);
+                          // _prefs.setString("tel", tel);
                         } catch (e) {
                           c = e.toString();
                         }
 
-                        var message = '';
-                        // print('sex' + sex);
-                        // print(tel.length);
                         if (sex.isEmpty == true) {
                           message = "กรุณาเลือกเพศ";
                         } else if (tel.length <= 9) {
@@ -581,10 +605,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           message =
                               'ไม่สร้างบัณชีผู้ใช้ใหม่ได้ เนื่องจากมีปัญหาทางด้าน Server กรุณาลองใหม่อีกครั้งในภายหลัก';
                         } else {
-                          message = 'สร้างบัญชีใหม่สำเร็จ';
+                          message = 'สร้างบัญชีสำเร็จ';
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                                content: Text(
+                              message,
+                              style: TextStyle(fontSize: 20),
+                            )),
+                          );
                           Navigator.of(context).pushNamedAndRemoveUntil(
-                              '/mainMenu', (Route<dynamic> route) => false);
+                              '/BMIRGTScreen', (Route<dynamic> route) => false);
                         }
+
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                               content: Text(

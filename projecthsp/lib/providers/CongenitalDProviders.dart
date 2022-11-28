@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 
 import '../models/CongenitalDModel.dart';
 
-class BMIProvider {
+class CongenitalDProvider {
   String host = "127.0.0.1:8000";
 
   Future<List<CongenitalD>> getDataCongenitalD() async {

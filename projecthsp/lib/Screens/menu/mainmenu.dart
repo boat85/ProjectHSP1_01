@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../login/login.dart';
 import '../predict/prediction.dart';
 import '../profile/profile.dart';
@@ -11,6 +12,27 @@ class mainMenu extends StatefulWidget {
 }
 
 class _mainMenuState extends State<mainMenu> {
+  String? fullname = '';
+
+  Future getdatauser() async {
+    final SharedPreferences _prefs = await SharedPreferences.getInstance();
+    setState(() {
+      try {
+        fullname = (_prefs.getString("fullname")! +
+            " " +
+            _prefs.getString("lastname")!);
+      } catch (e) {
+        print("No data user");
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    getdatauser();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,9 +57,9 @@ class _mainMenuState extends State<mainMenu> {
               Padding(
                 padding: const EdgeInsets.all(20),
                 child: Column(
-                  children: const <Widget>[
+                  children: [
                     Text(
-                      "ใครครับเนี่ย",
+                      fullname!,
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 30,

@@ -72,6 +72,32 @@ class UsersProvider {
     return Users.fromJson(response.data);
   }
 
+  Future<Users> updateUserd(
+      dynamic fullname,
+      dynamic lastname,
+      dynamic sex,
+      dynamic birthday,
+      dynamic email,
+      dynamic tel,
+      dynamic address,
+      dynamic blood_type,
+      dynamic password,
+      String id) async {
+    var url = "http://${host}/getUsers/${id}/update";
+    Response response = await Dio().put(url, data: {
+      'fullname': fullname,
+      'lastname': lastname,
+      'sex': sex,
+      'birthday': birthday,
+      'email': email,
+      'tel': tel,
+      'address': address,
+      'blood_type': blood_type,
+      'password': password
+    });
+    return Users.fromJson(response.data);
+  }
+
   // Future<Users> updateUserd(String fname, String lname, String id) async {
   //   final url = "http://127.0.0.1:8000/getUsers/${id}/update";
   //   Response response =

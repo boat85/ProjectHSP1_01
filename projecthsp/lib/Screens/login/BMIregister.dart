@@ -1,5 +1,15 @@
-import 'package:dropdown_textfield/dropdown_textfield.dart';
+import 'package:projecthsp/models/BMIModel.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../models/CongenitalDModel.dart';
+import '../../models/PressureModel.dart';
+import '../../providers/BMIProviders.dart';
 import 'package:flutter/material.dart';
+
+import '../../providers/CongenitalDProviders.dart';
+import '../../providers/PressureProviders.dart';
+import '../../models/userModel.dart';
+import '../../providers/usersProviders.dart';
 
 class BMIRGTScreen extends StatefulWidget {
   const BMIRGTScreen({super.key});
@@ -44,9 +54,9 @@ class _butomtestState extends State<butomtest> {
   final _formKey = GlobalKey<FormState>();
   bool hidepassword = true;
 
-  late String width;
-  late String height;
-  late String pressure;
+  String width = '';
+  String height = '';
+  String pressure = '';
 
   bool v1 = false;
   bool v2 = false;
@@ -381,28 +391,80 @@ class _butomtestState extends State<butomtest> {
           onPressed: () async {
             if (_formKey.currentState!.validate()) {
               _formKey.currentState!.save();
+              final SharedPreferences _prefs =
+                  await SharedPreferences.getInstance();
+              String? id = _prefs.getString("id");
+              // String? nh = height[0] + '.' + height.substring(1, 3);
+              double nh = (double.parse(height) / 100);
+              dynamic c_bmi = double.parse(width) / (nh * nh);
               String c = '';
+              // print(nh);
+              // print(c_bmi);
 
               try {
-                // var usersdata = await UsersProvider().addUserd(
-                //     fullname,
-                //     lastname,
-                //     sex,
-                //     birthday,
-                //     email,
-                //     tel,
-                //     address,
-                //     blood_type,
-                //     password);
-
+                Bmi bmi =
+                    await BMIProvider().addBMI(id, width, height, c_bmi, '');
+                // _prefs.setString("tel", userlogin.tel);
               } catch (e) {
-                c = e.toString();
+                print(e.toString());
               }
 
-              print(v1);
-              print(v2);
+              try {
+                CongenitalDProvider Con = (await CongenitalDProvider());
+                if (v1 == true) {
+                  // print('ความดัน');
+                  Con.addCongenitalD(id, 'ความดัน', '');
+                }
+                if (v2 == true) {
+                  Con.addCongenitalD(id, 'เบาหวาน', '');
+                }
+                if (v3 == true) {
+                  Con.addCongenitalD(id, 'ไขมันในเลือดสูง', '');
+                }
+                if (v4 == true) {
+                  Con.addCongenitalD(id, 'โรคไต', '');
+                }
+              } catch (e) {}
+
+              try {
+                Pressure ps =
+                    await PressureProvider().addPressure(id, pressure, '');
+              } catch (e) {
+                print(e.toString());
+              }
+
+              try {
+                String tel = _prefs.getString("tel")!;
+                String email = _prefs.getString("email")!;
+                String sex = _prefs.getString("sex")!;
+                String fullname = _prefs.getString("fullname")!;
+                String lastname = _prefs.getString("lastname")!;
+                String birthday = _prefs.getString("birthday")!;
+                String address = _prefs.getString("address")!;
+                String blood_type = _prefs.getString("bloodType")!;
+                String password = _prefs.getString("password")!;
+
+                Users userlogin = await UsersProvider().updateUserd(
+                    fullname,
+                    lastname,
+                    sex,
+                    birthday,
+                    email,
+                    tel,
+                    address,
+                    blood_type,
+                    password,
+                    id!);
+
+                if (userlogin.bloodType != Null) {
+                  _prefs.setString("id", userlogin.bloodType);
+                }
+              } catch (e) {
+                print(e.toString());
+              }
 
               var message = '';
+              print(blood_type);
               if (blood_type.isEmpty == true) {
                 message = 'กรุณาเลือกหมู่เลือด';
               }

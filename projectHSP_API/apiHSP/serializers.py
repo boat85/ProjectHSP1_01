@@ -7,6 +7,11 @@ class UsersSerializer(ModelSerializer):
         model = Users
         fields = '__all__'
 
+class UsersSerializerblood(ModelSerializer):
+    class Meta:
+        model = Users
+        fields = ['blood_type']
+
 class BMISerializer(ModelSerializer):
     class Meta:
         model = BMI

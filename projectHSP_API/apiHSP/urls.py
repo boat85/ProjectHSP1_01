@@ -9,6 +9,7 @@ urlpatterns = [
     path('delete/<str:pk>/',views.deleteUser),
     path('getUsers/<str:pk>/',views.getdataUser),
     path('getUsers/<str:pk>/<str:pk1>/',views.getdataUserlogin),
+    path('updateblood/<str:pk>/<str:pk1>/',views.updateUserBloo),
     #BMI
     path('getdataBMIALL/',viewsBMI.getdataBMIALL),
     path('getdataBMIbyID/<str:pk>/',viewsBMI.getdataBMIbyID),

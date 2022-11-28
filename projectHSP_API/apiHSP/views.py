@@ -3,7 +3,7 @@ from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-from .serializers import UsersSerializer
+from .serializers import UsersSerializer,UsersSerializerblood
 from .models import Users
 
 # Create your views here.
@@ -168,10 +168,22 @@ def createUser(request):
 def updateUser(request, pk):
     data = request.data
     user = Users.objects.get(id=pk)
+    
 
     serializer = UsersSerializer(user, data=request.data)
     if serializer.is_valid():
         serializer.save()
+    return Response(serializer.data)
+
+#test
+@api_view(['GET'])
+def updateUserBloo(request, pk,pk1):
+    id = pk
+    user = Users.objects.raw("UPDATE apiHSP_users SET blood_type = '{}' WHERE id={}".format(pk1,id))
+
+    serializer = UsersSerializerblood(user, many=False)
+    # if serializer.is_valid():
+    #     serializer.save()
     return Response(serializer.data)
 
 
